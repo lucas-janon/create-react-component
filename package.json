@@ -1,6 +1,6 @@
 {
   "name": "@luqih/create-react-component",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "bin": {
     "create-react-component": "createreactcomponent.js"
