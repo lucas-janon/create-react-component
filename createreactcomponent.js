@@ -54,15 +54,17 @@ const run = async () => {
   const addHook = hook === 'y';
   const baseDir = `${dir}/${compName}`;
 
-  console.log(dir, hook, isTs, addHook)
+  try {
+    fs.mkdirSync(baseDir);
+    fs.mkdirSync(`${baseDir}/components`);
+    fs.writeFileSync(`${baseDir}/index.${baseExtension}`, `export { ${compName} } from "./components/${compName}";\n`);
+    fs.writeFileSync(`${baseDir}/components/${compName}.${baseExtension}x`, ``);
+    addHook && fs.writeFileSync(`${baseDir}/use${compName}.${baseExtension}`, ``);
 
-  fs.mkdirSync(baseDir);
-  fs.mkdirSync(`${baseDir}/components`);
-  fs.writeFileSync(`${baseDir}/index.${baseExtension}`, `export { ${compName} } from './components/${compName}';\n`);
-  fs.writeFileSync(`${baseDir}/components/${compName}.${baseExtension}x`, ``);
-  addHook && fs.writeFileSync(`${baseDir}/use${compName}.${baseExtension}`, ``);
-
-  console.log(`Created the component: ${compName} at ${baseDir}.`);
+    console.log(`Created the component: ${compName} at ${baseDir}.`);
+  } catch ({ message }) {
+    console.error('Error creating component:', message)
+  }
 }
 
 run()
